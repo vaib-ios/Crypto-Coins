@@ -10,11 +10,11 @@ import SwiftUI
 
 struct CoinsListView: View {
 
-    let coins = mockCoins
+    @StateObject private var viewModel = CoinsListViewModel()
 
     var body: some View {
         NavigationStack {
-            List(coins) { coin in
+            List(viewModel.coins) { coin in
                 NavigationLink(value: coin) {
                     CoinRowView(coin: coin)
                 }
