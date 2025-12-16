@@ -8,24 +8,51 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct CoinsListView: View {
 
     @StateObject private var viewModel = CoinsListViewModel()
 
     var body: some View {
         NavigationStack {
-            List(viewModel.coins) { coin in
+            content
+                .navigationTitle("Crypto Coins")
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch viewModel.state {
+
+        case .loading:
+            ProgressView("Loading coins...")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+        case .error(let message):
+            VStack(spacing: 12) {
+                Text(message)
+                    .foregroundColor(.red)
+
+                Button("Retry") {
+                    viewModel.retry()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+        case .success(let coins):
+            List(coins) { coin in
                 NavigationLink(value: coin) {
                     CoinRowView(coin: coin)
                 }
             }
-            .navigationTitle("Crypto Coins")
             .navigationDestination(for: Coin.self) { coin in
                 CoinDetailView(coin: coin)
             }
         }
     }
 }
+
 
 #Preview {
     CoinsListView()
