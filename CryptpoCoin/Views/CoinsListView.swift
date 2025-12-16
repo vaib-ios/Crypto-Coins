@@ -35,7 +35,7 @@ struct CoinsListView: View {
                     .foregroundColor(.red)
 
                 Button("Retry") {
-                    viewModel.retry()
+                    viewModel.refresh()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -45,6 +45,9 @@ struct CoinsListView: View {
                 NavigationLink(value: coin) {
                     CoinRowView(coin: coin)
                 }
+            }
+            .refreshable {
+                viewModel.refresh()
             }
             .navigationDestination(for: Coin.self) { coin in
                 CoinDetailView(coin: coin)

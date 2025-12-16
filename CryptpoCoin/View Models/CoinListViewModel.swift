@@ -15,23 +15,34 @@ final class CoinsListViewModel: ObservableObject {
         case success([Coin])
         case error(String)
     }
-    
+
     @Published private(set) var state: ViewState = .loading
-    
-    @Published var coins: [Coin] = []
 
-    init() {
-       loadCoins()
+    private let networkService: NetworkServiceProtocol
+
+    // MARK: - Init
+
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
+        self.networkService = networkService
+        refresh()
     }
 
-    private func loadCoins() {
+    // MARK: - Public Intent
+
+    func refresh() {
         state = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            self.state = .success(mockCoins)
+
+        Task {
+            do {
+                let dtos: [CoinDTO] =
+                try await networkService.fetch(CoinGeckoEndpoint.coinsList)
+
+                let coins = dtos.map(Coin.init)
+                state = .success(coins)
+
+            } catch {
+                state = .error(error.localizedDescription)
+            }
         }
-    }
-    
-    func retry() {
-        loadCoins()
     }
 }

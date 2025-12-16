@@ -14,10 +14,10 @@ struct CoinRowView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-
-            Circle()
-                .fill(Color.gray.opacity(0.3))
+            CachedAsyncImage(url: coin.imageURL)
+                .scaledToFit()
                 .frame(width: 40, height: 40)
+                .clipShape(Circle())
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(coin.name)
