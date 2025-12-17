@@ -42,19 +42,35 @@ final class CoinsListViewModelTests: XCTestCase {
 
         let viewModel = CoinsListViewModel(networkService: mockService)
 
-        let expectation = XCTestExpectation(description: "Fallback success state")
+        let expectation = XCTestExpectation(description: "State becomes error")
 
-        for _ in 0..<10 {
-            if case .success(let coins) = viewModel.state {
-                XCTAssertFalse(coins.isEmpty)
-                expectation.fulfill()
-                break
+        Task {
+            for _ in 0..<10 {
+                if case .error(let message) = viewModel.state {
+                    XCTAssertFalse(message.isEmpty)
+                    expectation.fulfill()
+                    return
+                }
+                try await Task.sleep(nanoseconds: 100_000_000)
             }
-            try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s
         }
 
         await fulfillment(of: [expectation], timeout: 2)
     }
 
+    @MainActor
+    func test_refresh_setsLoadingState_initially() {
+        let mockService = MockNetworkService(
+            result: .success(coinsListJSON)
+        )
+
+        let viewModel = CoinsListViewModel(networkService: mockService)
+
+        if case .loading = viewModel.state {
+            XCTAssertTrue(true)
+        } else {
+            XCTFail("Expected loading state initially")
+        }
+    }
 
 }

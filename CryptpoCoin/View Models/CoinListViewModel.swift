@@ -35,7 +35,7 @@ final class CoinsListViewModel: ObservableObject {
                 state = .success(coins)
 
             } catch {
-                state = .success(mockCoins)
+                state = .error("Failed to load coins. Please try again.")
             }
         }
     }
