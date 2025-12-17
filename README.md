@@ -123,6 +123,19 @@ The repository includes the full `.git` history showing:
 - UI/UX improvements
 - Test additions
 
+## 🚀 Getting Started
+
+### Requirements
+- Xcode 16.4+
+- iOS 16.4+
+- Swift 5.9+
+
+### Installation & Run
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+
+
 ---
 
 ## 👤 Author
