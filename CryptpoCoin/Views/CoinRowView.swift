@@ -42,6 +42,11 @@ struct CoinRowView: View {
                 .foregroundColor(coin.change24h >= 0 ? .green : .red)
             }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(coin.name), \(coin.symbol)")
+        .accessibilityValue(
+            "Price \(coin.price), \(coin.change24h)% in last 24 hours"
+        )
         .padding(.vertical, 8)
     }
 }

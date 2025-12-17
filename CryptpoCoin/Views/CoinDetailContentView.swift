@@ -50,6 +50,8 @@ struct CoinDetailContentView: View {
             Text("$\(detail.currentPrice, specifier: "%.2f")")
                 .font(.largeTitle)
                 .bold()
+                .accessibilityLabel("Current price")
+                .accessibilityValue("$\(detail.currentPrice)")
 
             HStack {
                 Image(systemName: detail.priceChangePercentage24h >= 0 ? "arrow.up" : "arrow.down")
