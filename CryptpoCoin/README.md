@@ -30,7 +30,7 @@ This project was developed as part of a technical assignment to demonstrate mode
   - All Time High (ATH)
   - All Time Low (ATL)
 - Pull-to-refresh support
-- Graceful fallback data when API rate limits are reached
+- Graceful loading and error states with retry support
 
 ---
 
@@ -56,9 +56,9 @@ This project was developed as part of a technical assignment to demonstrate mode
 - Centralized `NetworkService`
 - Protocol-based abstraction for testability
 - Handles HTTP errors and retry logic
-- Fallback data used when:
-  - API rate limit is exceeded (HTTP 429)
-  - Network connectivity fails
+- Proper HTTP error handling
+- Automatic retry logic for transient network failures
+
 
 ---
 
@@ -106,8 +106,7 @@ No additional setup required.
 
 ## ⚠️ Notes / Trade-offs
 
-- CoinGecko free API has strict rate limits  
-  → Fallback data is used when the limit is exceeded
+- CoinGecko free API has strict rate limits; the app surfaces clear error states with retry support  
 - Charts and advanced visualizations were intentionally excluded to keep the scope focused
 - UI animations are minimal to avoid unnecessary complexity
 
