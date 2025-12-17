@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct CoinDetailView: View {
-
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel: CoinDetailViewModel
 
     init(coinId: String) {
@@ -13,8 +13,26 @@ struct CoinDetailView: View {
 
     var body: some View {
         content
-            .navigationTitle("Coin Detail")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationTitle(navigationTitle)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                    }
+                    .foregroundColor(.accentColor)
+                }
+            }
+    }
+
+    private var navigationTitle: String {
+        if case .success(let detail) = viewModel.state {
+            return detail.name
+        }
+        return ""
     }
 
     @ViewBuilder
@@ -27,6 +45,9 @@ struct CoinDetailView: View {
 
         case .success(let detail):
             CoinDetailContentView(detail: detail)
+                .refreshable {
+                    viewModel.fetchDetail()
+                }
 
         case .error(let message):
             VStack(spacing: 16) {
@@ -41,4 +62,5 @@ struct CoinDetailView: View {
         }
     }
 }
+
 

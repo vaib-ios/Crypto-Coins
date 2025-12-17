@@ -8,7 +8,6 @@ struct CoinDetailContentView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-
                 header
                 priceCard
                 marketStats
