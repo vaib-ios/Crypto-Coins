@@ -133,7 +133,7 @@ The repository includes the full `.git` history showing:
 ### Installation & Run
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:vaib-ios/Crypto-Coins.git
 
 
 ---
