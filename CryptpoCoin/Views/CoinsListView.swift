@@ -42,15 +42,17 @@ struct CoinsListView: View {
 
         case .success(let coins):
             List(coins) { coin in
-                NavigationLink(value: coin) {
+                NavigationLink {
+                    CoinDetailView(coinId: coin.id)
+                } label: {
                     CoinRowView(coin: coin)
                 }
             }
             .refreshable {
                 viewModel.refresh()
             }
-            .navigationDestination(for: Coin.self) { coin in
-                CoinDetailView(coin: coin)
+            .navigationDestination(for: String.self) { coinId in
+                CoinDetailView(coinId: coinId)
             }
         }
     }

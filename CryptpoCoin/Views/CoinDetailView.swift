@@ -9,24 +9,42 @@ import SwiftUI
 
 struct CoinDetailView: View {
 
-    let coin: Coin
+    @StateObject private var viewModel: CoinDetailViewModel
+
+    init(coinId: String) {
+        _viewModel = StateObject(
+            wrappedValue: CoinDetailViewModel(coinId: coinId)
+        )
+    }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text(coin.name)
-                .font(.largeTitle)
-                .bold()
+        content
+            .navigationTitle("Coin Detail")
+            .navigationBarTitleDisplayMode(.inline)
+    }
 
-            Text(coin.symbol.uppercased())
-                .foregroundStyle(.secondary)
+    @ViewBuilder
+    private var content: some View {
+        switch viewModel.state {
 
-            Text("$\(coin.price, specifier: "%.2f")")
-                .font(.title)
+        case .loading:
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            Spacer()
+        case .success(let detail):
+            CoinDetailContentView(detail: detail)
+
+        case .error(let message):
+            VStack(spacing: 16) {
+                Text(message)
+                    .foregroundColor(.secondary)
+
+                Button("Retry") {
+                    viewModel.fetchDetail()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding()
-        .navigationTitle(coin.name)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
+

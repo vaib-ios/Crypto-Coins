@@ -13,6 +13,7 @@ protocol Endpoint {
 enum CoinGeckoEndpoint: Endpoint {
 
     case coinsList
+    case coinDetail(id: String)
 
     var url: URL? {
         switch self {
@@ -23,8 +24,17 @@ enum CoinGeckoEndpoint: Endpoint {
             "&category=layer-1" +
             "&price_change_percentage=1h" +
             "&x-cg-demo-api-key=CG-xxcGCMWaV68vFQxAeLALTMQN"
-
+            
             return URL(string: urlString)
+            
+        case .coinDetail(let id):
+            return URL(string:
+                        "https://api.coingecko.com/api/v3/coins/markets" +
+                       "?vs_currency=aud" +
+                       "&include_platform=false" +
+                       "&ids=\(id)" +
+                       "&x-cg-demo-api-key=CG-xxcGCMWaV68vFQxAeLALTMQN"
+            )
         }
     }
 }

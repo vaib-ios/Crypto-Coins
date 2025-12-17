@@ -41,7 +41,7 @@ final class CoinsListViewModel: ObservableObject {
                 state = .success(coins)
 
             } catch {
-                state = .error(error.localizedDescription)
+                state = .success(mockCoins)
             }
         }
     }
