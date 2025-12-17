@@ -1,8 +1,6 @@
 
 import Foundation
 
-import Foundation
-
 let coinDetailJSON: Data = """
 [
   {

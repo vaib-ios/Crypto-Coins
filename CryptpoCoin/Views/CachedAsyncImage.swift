@@ -30,16 +30,16 @@ struct CachedAsyncImage: View {
             image == nil,
             !isLoading
         else { return }
-
+        
         let nsURL = url as NSURL
-
+        
         if let cached = ImageCache.shared.image(for: nsURL) {
             self.image = cached
             return
         }
-
+        
         isLoading = true
-
+        
         Task {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
@@ -48,7 +48,9 @@ struct CachedAsyncImage: View {
                     self.image = uiImage
                 }
             } catch {
-                // silently fail
+#if DEBUG
+                print("Image load failed for URL:", url)
+#endif
             }
             isLoading = false
         }
