@@ -135,6 +135,19 @@ The repository includes the full `.git` history showing:
    ```bash
    git clone git@github.com:vaib-ios/Crypto-Coins.git
 
+## Screenshots
+
+### Coins List
+| Light Mode | Dark Mode |
+|-----------|-----------|
+| ![List Light](CryptpoCoin/Screenshots/list_light.png) | ![List Dark](CryptpoCoin/Screenshots/list_dark.png) |
+
+### Coin Detail
+| Light Mode | Dark Mode |
+|-----------|-----------|
+| ![Detail Light](CryptpoCoin/Screenshots/detail_light.png) | ![Detail Dark](CryptpoCoin/Screenshots/detail_dark.png) |
+
+
 
 ---
 
