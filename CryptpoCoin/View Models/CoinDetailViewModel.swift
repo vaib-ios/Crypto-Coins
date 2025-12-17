@@ -30,24 +30,19 @@ final class CoinDetailViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 let result: [CoinDetailDTO] =
-                try await networkService.fetch(
-                    CoinGeckoEndpoint.coinDetail(id: coinId)
-                )
+                    try await networkService.fetch(
+                        CoinGeckoEndpoint.coinDetail(id: coinId)
+                    )
 
-                if let detail = result.first {
-                    state = .success(detail)
-                } else {
-                    state = .success(MockCoinDetail.forCoin(id: coinId))
+                guard let detail = result.first else {
+                    state = .error("No detail data available.")
+                    return
                 }
 
-            } catch let NetworkError.httpError(statusCode) where statusCode == 429 {
-                state = .success(MockCoinDetail.forCoin(id: coinId))
-
-            } catch let urlError as URLError {
-                state = .success(MockCoinDetail.forCoin(id: coinId))
+                state = .success(detail)
 
             } catch {
-                state = .error("Unable to load coin details.")
+                state = .error("Unable to load coin details. Please try again.")
             }
         }
     }
