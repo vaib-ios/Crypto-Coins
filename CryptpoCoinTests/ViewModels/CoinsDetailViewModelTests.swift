@@ -1,9 +1,3 @@
-//
-//  CoinsDetailViewModelTests.swift
-//  CryptpoCoinTests
-//
-//  Created by Vaibhav Limbani on 17/12/25.
-//
 
 import XCTest
 @testable import CryptpoCoin

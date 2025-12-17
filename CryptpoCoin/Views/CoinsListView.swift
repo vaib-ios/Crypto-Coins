@@ -1,12 +1,3 @@
-//
-//  CoinsListViews.swift
-//  CryptpoCoin
-//
-//  Created by Vaibhav Limbani on 17/12/25.
-//
-
-
-import SwiftUI
 
 import SwiftUI
 
@@ -41,12 +32,28 @@ struct CoinsListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
         case .success(let coins):
-            List(coins) { coin in
-                NavigationLink {
-                    CoinDetailView(coinId: coin.id)
-                } label: {
-                    CoinRowView(coin: coin)
+            ScrollView {
+                LazyVStack(spacing: 12) {
+                    ForEach(coins) { coin in
+                        NavigationLink(value: coin.id) {
+                            CoinRowView(coin: coin)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color(.secondarySystemBackground))
+                                        .shadow(
+                                            color: Color.black.opacity(0.06),
+                                            radius: 6,
+                                            x: 0,
+                                            y: 4
+                                        )
+                            ).contentShape(RoundedRectangle(cornerRadius: 16))
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
+                .padding(.horizontal)
+                .padding(.top, 8)
             }
             .refreshable {
                 viewModel.refresh()

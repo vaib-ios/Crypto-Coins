@@ -1,9 +1,3 @@
-//
-//  TestModels.swift
-//  CryptpoCoin
-//
-//  Created by Vaibhav Limbani on 17/12/25.
-//
 
 import Foundation
 

@@ -1,9 +1,3 @@
-//
-//  CoinDetailViewModel.swift
-//  CryptpoCoin
-//
-//  Created by Vaibhav Limbani on 17/12/25.
-//
 
 import Foundation
 
@@ -46,9 +40,14 @@ final class CoinDetailViewModel: ObservableObject {
                     state = .success(MockCoinDetail.forCoin(id: coinId))
                 }
 
+            } catch let NetworkError.httpError(statusCode) where statusCode == 429 {
+                state = .success(MockCoinDetail.forCoin(id: coinId))
+
+            } catch let urlError as URLError {
+                state = .success(MockCoinDetail.forCoin(id: coinId))
+
             } catch {
-                let mockDetail = MockCoinDetail.forCoin(id: coinId)
-                state = .success(mockDetail)
+                state = .error("Unable to load coin details.")
             }
         }
     }
