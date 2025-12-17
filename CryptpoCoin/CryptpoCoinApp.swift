@@ -1,9 +1,3 @@
-//
-//  CryptpoCoinApp.swift
-//  CryptpoCoin
-//
-//  Created by Vaibhav Limbani on 17/12/25.
-//
 
 import SwiftUI
 
@@ -11,7 +5,7 @@ import SwiftUI
 struct CryptpoCoinApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CoinsListView()
         }
     }
 }
