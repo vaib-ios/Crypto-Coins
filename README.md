@@ -148,7 +148,6 @@ The repository includes the full `.git` history showing:
 | ![Detail Light](CryptpoCoin/Screenshots/detail_light.png) | ![Detail Dark](CryptpoCoin/Screenshots/detail_dark.png) |
 
 
-
 ---
 
 ## 👤 Author
