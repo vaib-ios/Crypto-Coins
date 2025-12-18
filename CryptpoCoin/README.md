@@ -123,6 +123,18 @@ The repository includes the full `.git` history showing:
 - UI/UX improvements
 - Test additions
 
+## Screenshots
+
+### Coins List
+| Light Mode | Dark Mode |
+|-----------|-----------|
+| ![List Light](Screenshots/list_light.png) | ![List Dark](Screenshots/list_dark.png) |
+
+### Coin Detail
+| Light Mode | Dark Mode |
+|-----------|-----------|
+| ![Detail Light](Screenshots/detail_light.png) | ![Detail Dark](Screenshots/detail_dark.png) |
+
 ---
 
 ## 👤 Author
